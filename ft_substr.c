@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: kamanfo <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/11/22 15:25:23 by kamanfo           #+#    #+#             */
-/*   Updated: 2021/11/25 20:47:56 by kamanfo          ###   ########.fr       */
+/*   Created: 2021/11/26 12:48:22 by kamanfo           #+#    #+#             */
+/*   Updated: 2021/11/26 12:48:35 by kamanfo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,23 +14,29 @@
 
 char	*ft_substr(char const *s, unsigned int start, size_t len)
 {
-	char	*str;
 	size_t	i;
-	size_t	j;
+	char	*res;
 
 	i = 0;
-	j = 0;
-	if (!s)
-		return (NULL);
-	str = malloc(sizeof(*s) * (len + 1));
-	if (!str)
-		return (NULL);
-	while (s[i])
+	if ((size_t)start >= ft_strlen(s))
 	{
-		if (i >= start && j < len)
-			str[j++] = s[i];
+		res = malloc(sizeof(char));
+		if (!res)
+			return (NULL);
+		res[i] = 0;
+		return (res);
+	}
+	if (len > ft_strlen(s) - start)
+		res = malloc(sizeof(char) * ft_strlen(s) - start + 1);
+	else
+		res = malloc(sizeof(char) * len + 1);
+	if (!res)
+		return (NULL);
+	while (i < len && s[(int)start + i])
+	{
+		res[i] = s[start + i];
 		i++;
 	}
-	str[j] = 0;
-	return (str);
+	res[i] = 0;
+	return (res);
 }
